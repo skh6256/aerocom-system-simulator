@@ -1,5 +1,5 @@
 # ============================================================
-# Animation V5 Web v21
+# Animation V5 Web v22
 # - Responsive 1000x700 stage
 # - Entire UI scales together with browser window
 # - SVG assets isolated with data URI
@@ -5239,7 +5239,8 @@ def show_central_placeholder():
                     src.pipe,
                     {TITAN_SEND_TO_PIPE_SECONDS} * 1000,
                     48,
-                    0
+                    0,
+                    "linear"
                 );
 
                 await sourceAlignPromise;
@@ -5412,6 +5413,11 @@ def show_central_placeholder():
 
             // -------------------------------------------------
             // Direct TITAN 1 <-> 2
+            //
+            // v22:
+            // source station 내부의 entry_end -> pipe도 linear,
+            // 이 direct transfer도 linear로 이어지므로
+            // No.1 basket 부근에서 감속/재출발하지 않습니다.
             // -------------------------------------------------
             async function directTitanTransfer(sourceNo, destinationNo, startPoint) {{
                 const dst = stationConfigs[destinationNo];

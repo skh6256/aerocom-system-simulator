@@ -1,41 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 25.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 108.26 255.37" style="enable-background:new 0 0 108.26 255.37;" xml:space="preserve">
+<svg version="1.1" id="레이어_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" viewBox="0 0 108.3 255.4" style="enable-background:new 0 0 108.3 255.4;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:url(#SVGID_1_);stroke:#000000;stroke-miterlimit:10;}
+	.st0{fill:url(#SVGID_1_);stroke:#000000;stroke-width:4.252;stroke-miterlimit:10;}
 	.st1{fill:none;stroke:#000000;stroke-miterlimit:10;}
-	.st2{fill:url(#SVGID_2_);stroke:#000000;stroke-miterlimit:10;}
-	.st3{fill:url(#SVGID_3_);stroke:#000000;stroke-miterlimit:10;}
-	.st4{fill:url(#SVGID_4_);stroke:#000000;stroke-miterlimit:10;}
-	.st5{fill:url(#SVGID_5_);stroke:#000000;stroke-miterlimit:10;}
+	.st2{fill:url(#SVGID_2_);stroke:#000000;stroke-width:2.126;stroke-miterlimit:10;}
+	.st3{fill:url(#SVGID_3_);stroke:#000000;stroke-width:2.126;stroke-miterlimit:10;}
+	.st4{fill:url(#SVGID_4_);stroke:#000000;stroke-width:2.126;stroke-miterlimit:10;}
+	.st5{fill:url(#SVGID_5_);stroke:#000000;stroke-width:2.126;stroke-miterlimit:10;}
 </style>
 <g id="벡터">
-	<radialGradient id="SVGID_1_" cx="54.0073" cy="124.0926" r="94.2872" gradientUnits="userSpaceOnUse">
+	
+		<radialGradient id="SVGID_1_" cx="54.01" cy="131.1806" r="94.2887" gradientTransform="matrix(1 0 0 -1 0 255.2756)" gradientUnits="userSpaceOnUse">
 		<stop  offset="0.1608" style="stop-color:#939393"/>
 		<stop  offset="0.8945" style="stop-color:#515151"/>
 	</radialGradient>
-	<path class="st0" d="M3.96,245.08L4.95,0.5h99.11v245.29c0,1.05-0.85,1.9-1.9,1.9H6.55C5.12,247.69,3.95,246.52,3.96,245.08z"/>
-	<path class="st1" d="M3.95,119.02c0-32.56,24.15-40.51,26.92-40.66c22.44-1.22,21.89-1.44,44.66,0c30.83,1.96,28,39.11,28,39.11"/>
-	<radialGradient id="SVGID_2_" cx="51.9074" cy="251.2778" r="25.4259" gradientUnits="userSpaceOnUse">
+	<path class="st0" d="M4,245.1l1-244.6h99.1v245.3c0,1.1-0.8,1.9-1.9,1.9H6.6C5.1,247.7,4,246.5,4,245.1z"/>
+	<path class="st1" d="M4,119c0-32.6,24.1-40.5,26.9-40.7c22.4-1.2,21.9-1.4,44.7,0c30.8,2,28,39.1,28,39.1"/>
+	
+		<radialGradient id="SVGID_2_" cx="51.91" cy="3.9956" r="25.4273" gradientTransform="matrix(1 0 0 -1 0 255.2756)" gradientUnits="userSpaceOnUse">
 		<stop  offset="0.1608" style="stop-color:#939393"/>
 		<stop  offset="0.8945" style="stop-color:#515151"/>
 	</radialGradient>
-	<polygon class="st2" points="16.13,247.69 21.61,254.87 83.39,254.87 87.69,247.69 	"/>
-	<radialGradient id="SVGID_3_" cx="2.3528" cy="174.2775" r="6.7282" gradientUnits="userSpaceOnUse">
+	<polygon class="st2" points="16.1,247.7 21.6,254.9 83.4,254.9 87.7,247.7 	"/>
+	
+		<radialGradient id="SVGID_3_" cx="2.355" cy="81.0006" r="6.7299" gradientTransform="matrix(1 0 0 -1 0 255.2756)" gradientUnits="userSpaceOnUse">
 		<stop  offset="0.1608" style="stop-color:#939393"/>
 		<stop  offset="0.8945" style="stop-color:#515151"/>
 	</radialGradient>
-	<rect x="0.5" y="164.94" class="st3" width="3.71" height="18.67"/>
-	<radialGradient id="SVGID_4_" cx="105.9104" cy="174.2775" r="6.7282" gradientUnits="userSpaceOnUse">
+	<rect x="0.5" y="164.9" class="st3" width="3.7" height="18.7"/>
+	
+		<radialGradient id="SVGID_4_" cx="105.9104" cy="81.0006" r="6.7305" gradientTransform="matrix(1 0 0 -1 0 255.2756)" gradientUnits="userSpaceOnUse">
 		<stop  offset="0.1608" style="stop-color:#939393"/>
 		<stop  offset="0.8945" style="stop-color:#515151"/>
 	</radialGradient>
-	<rect x="104.06" y="164.94" class="st4" width="3.71" height="18.67"/>
-	<radialGradient id="SVGID_5_" cx="54.002" cy="174.7222" r="35.4343" gradientUnits="userSpaceOnUse">
+	<rect x="104.1" y="164.9" class="st4" width="3.7" height="18.7"/>
+	
+		<radialGradient id="SVGID_5_" cx="54.005" cy="80.5556" r="35.4339" gradientTransform="matrix(1 0 0 -1 0 255.2756)" gradientUnits="userSpaceOnUse">
 		<stop  offset="0.1608" style="stop-color:#939393"/>
 		<stop  offset="0.8945" style="stop-color:#515151"/>
 	</radialGradient>
-	<rect x="3.95" y="172.35" class="st5" width="100.11" height="4.74"/>
+	<rect x="4" y="172.4" class="st5" width="100.1" height="4.7"/>
 </g>
 </svg>
