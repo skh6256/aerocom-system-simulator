@@ -1,5 +1,5 @@
 # ============================================================
-# Animation V5 Web v22
+# Animation V5 Web v23
 # - Responsive 1000x700 stage
 # - Entire UI scales together with browser window
 # - SVG assets isolated with data URI
@@ -70,6 +70,11 @@ PTP_BLOWER_PORT_Y_RATIO = 0.010
 
 PTP_BLOWER_PIPE_HORIZONTAL_Y = 430
 PTP_BLOWER_PIPE_ELBOW_RADIUS = 28
+
+# PTP Blower 라벨
+# +X = 오른쪽 / +Y = 아래
+PTP_BLOWER_LABEL_X = 155
+PTP_BLOWER_LABEL_Y = 577
 
 PTP_STATION1_Y = 292
 PTP_STATION2_Y = 292
@@ -198,6 +203,15 @@ BLOWER_VISUAL_LEFT_Y = 361
 BLOWER_VISUAL_OFFSET_X = 1.5
 BLOWER_VISUAL_OFFSET_Y = 0
 
+# CCU 장비 라벨
+# +X = 오른쪽 / +Y = 아래
+CCU_BLOWER_LABEL_X = 15
+CCU_BLOWER_LABEL_Y = 463
+
+# Diverter 라벨은 디버터 위쪽에 표시
+CCU_DIVERTER_LABEL_X = 176
+CCU_DIVERTER_LABEL_Y = 315
+
 
 # ------------------------------------------------------------
 # Stations
@@ -316,9 +330,9 @@ CENTRAL_PIPE_INNER_WIDTH = 11
 # Level lines
 # ------------------------------------------------------------
 CENTRAL_LEVEL_LINES = (
-    165,
-    312,
-    620,
+    160,  # 기존 165 -> 5px 위
+    307,  # 기존 312 -> 5px 위
+    620,  # 맨 아래는 변경하지 않음
 )
 
 
@@ -1257,15 +1271,21 @@ def common_stage_css() -> str:
 
         .ptp-station-label {{
             position: absolute;
-
             color: {LABEL_RED};
-
             font-size: 1.8cqw;
             font-weight: 700;
             line-height: 1;
-
             white-space: nowrap;
+            z-index: 100;
+        }}
 
+        .ptp-equipment-label {{
+            position: absolute;
+            color: #111111;
+            font-size: 1.8cqw;
+            font-weight: 700;
+            line-height: 1;
+            white-space: nowrap;
             z-index: 100;
         }}
 
@@ -2746,6 +2766,16 @@ def show_point_to_point():
                 {pipe_html}
                 {blower_html}
 
+                <div
+                    class="ptp-equipment-label"
+                    style="
+                        left:{px(PTP_BLOWER_LABEL_X)};
+                        top:{py(PTP_BLOWER_LABEL_Y)};
+                    "
+                >
+                    Blower
+                </div>
+
                 {station1_html}
                 {station2_html}
 
@@ -4153,6 +4183,28 @@ def show_central_placeholder():
     send_html = ""
     dest_html = ""
 
+    equipment_label_html = f'''
+        <div
+            class="ccu-equipment-label"
+            style="
+                left:{px(CCU_BLOWER_LABEL_X)};
+                top:{py(CCU_BLOWER_LABEL_Y)};
+            "
+        >
+            Blower
+        </div>
+
+        <div
+            class="ccu-equipment-label"
+            style="
+                left:{px(CCU_DIVERTER_LABEL_X)};
+                top:{py(CCU_DIVERTER_LABEL_Y)};
+            "
+        >
+            Diverter
+        </div>
+    '''
+
     for station_no in range(1, 5):
         label_x, label_y = station_ui[station_no]["label"]
         send_x, send_y = station_ui[station_no]["send"]
@@ -4516,6 +4568,16 @@ def show_central_placeholder():
                 z-index:100;
             }}
 
+            .ccu-equipment-label {{
+                position:absolute;
+                color:#111111;
+                font-size:1.8cqw;
+                font-weight:700;
+                line-height:1;
+                white-space:nowrap;
+                z-index:100;
+            }}
+
             .ccu-send,
             .ccu-dest {{
                 position:absolute;
@@ -4583,6 +4645,7 @@ def show_central_placeholder():
                     {pipe_html}
                     {blower_html}
                     {diverter_html}
+                    {equipment_label_html}
 
                     {basket3_back_html}
                     {basket4_back_html}
