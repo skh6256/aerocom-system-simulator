@@ -1,5 +1,5 @@
 # ============================================================
-# Animation V5 Web v23
+# Animation V5 Web v31
 # - Responsive 1000x700 stage
 # - Entire UI scales together with browser window
 # - SVG assets isolated with data URI
@@ -38,6 +38,23 @@ PAZKOREA_LOGO_X = 28
 PAZKOREA_LOGO_Y = 58
 PAZKOREA_LOGO_TARGET_WIDTH = 165
 
+# ------------------------------------------------------------
+# Logo contact information
+# ------------------------------------------------------------
+# 메인 / PTP / CCU 모든 화면에 동일하게 표시됩니다.
+# HTML 텍스트이므로 마우스로 드래그하여 선택/복사할 수 있습니다.
+# +X = 오른쪽 / +Y = 아래
+CONTACT_INFO_X = 28
+CONTACT_INFO_Y = 108
+CONTACT_INFO_FONT_SIZE = 11.5
+CONTACT_INFO_LINE_HEIGHT = 1.25
+
+CONTACT_PHONE_LABEL = "TEL :"
+CONTACT_PHONE_VALUE = "031-791-1033"
+
+CONTACT_EMAIL_LABEL = "E-MAIL :"
+CONTACT_EMAIL_VALUE = "pazbest@pazkorea.co.kr"
+
 
 # ============================================================
 # 메인 메뉴
@@ -46,8 +63,9 @@ PAZKOREA_LOGO_TARGET_WIDTH = 165
 MAIN_MENU_BUTTON_X = 282
 MAIN_MENU_BUTTON_WIDTH = 436
 MAIN_MENU_BUTTON_HEIGHT = 105
-MAIN_MENU_POINT_Y = 205
-MAIN_MENU_CENTRAL_Y = 355
+# CCU가 위 / PTP가 아래
+MAIN_MENU_CENTRAL_Y = 205
+MAIN_MENU_POINT_Y = 355
 MAIN_MENU_FONT_SIZE = 28
 
 
@@ -75,6 +93,22 @@ PTP_BLOWER_PIPE_ELBOW_RADIUS = 28
 # +X = 오른쪽 / +Y = 아래
 PTP_BLOWER_LABEL_X = 155
 PTP_BLOWER_LABEL_Y = 577
+
+# ------------------------------------------------------------
+# PTP Control Panel
+# ------------------------------------------------------------
+# control panel.svg의 왼쪽 위 기준 위치
+# +X = 오른쪽 / +Y = 아래
+PTP_CONTROL_PANEL_X = 300
+PTP_CONTROL_PANEL_Y = 500
+
+# SVG 전체 표시 높이
+# 비율은 원본 SVG의 viewBox를 기준으로 자동 유지됩니다.
+PTP_CONTROL_PANEL_TARGET_HEIGHT = 43
+
+# Control Panel 라벨 위치
+PTP_CONTROL_PANEL_LABEL_X = 260
+PTP_CONTROL_PANEL_LABEL_Y = 550
 
 PTP_STATION1_Y = 292
 PTP_STATION2_Y = 292
@@ -293,6 +327,13 @@ EWS3_INLET_OFFSET_Y = 0
 EWS4_INLET_OFFSET_X = 0
 EWS4_INLET_OFFSET_Y = 0
 
+# No.4 EWS body (guide rail version) tuning
+# New asset preferred: "EWS 스테이션 본체with가이드레일.svg"
+# If the new SVG artboard causes visible misalignment, adjust these values.
+EWS4_BODY_OFFSET_X = 37
+EWS4_BODY_OFFSET_Y = 0
+EWS4_BODY_HEIGHT_MULTIPLIER = 1.07
+EWS4_SHOW_BASKET = False
 
 # ------------------------------------------------------------
 # EWS basket
@@ -469,6 +510,75 @@ EWS4_BASKET_DROP_X = 670
 EWS4_BASKET_DROP_Y = 610
 
 EWS4_BASKET_DROP_ROTATION_DEG = -45.0
+
+# ============================================================
+# No.4 guide rail receive path
+# ============================================================
+# v27:
+# Station 4는 기존의 수직 배출(receive_hidden_start -> output)을
+# 전혀 사용하지 않습니다.
+#
+# 캐리어는 GUIDE_START 위치에서 생성됩니다.
+# 이 위치에서는 EWS 본체(z=60) 뒤에 있기 때문에 실제 화면에서는
+# 본체에 가려져 있다가 가이드레일 쪽으로 이동하면서 자연스럽게 보입니다.
+#
+# 곡선은 cubic Bezier(시작점 + 제어점 2개 + 끝점)를 사용합니다.
+#
+# START      : 캐리어 곡선 이동 시작점
+# CONTROL1   : 시작 직후 진행방향/휘어짐 조정
+# CONTROL2   : 곡선 끝부분 진행방향/휘어짐 조정
+# CURVE_END  : 곡선 종료점
+# WALL       : 수평 직선구간 최종 정지점
+#
+# 반시계 회전은 별도 회전 애니메이션이 아니라
+# "현재 곡선의 진행방향(접선)"을 따라 자동 계산합니다.
+# 시작 접선이 아래쪽이면 0도,
+# 끝 접선이 오른쪽이면 -90도(반시계 90도)가 됩니다.
+
+# 가이드레일 윗단 시작점
+EWS4_GUIDE_START_X = EWS4_HIDDEN_START_X
+EWS4_GUIDE_START_Y = EWS4_HIDDEN_START_Y
+
+# 곡선 종료점
+EWS4_GUIDE_CURVE_END_X = EWS4_EMERGE_END_X + 65
+EWS4_GUIDE_CURVE_END_Y = EWS4_EMERGE_END_Y + 21
+
+# CONTROL1:
+# 시작점과 X를 같게 두면 캐리어가 처음에 수직 아래방향으로 출발합니다.
+# Y를 크게 할수록 더 오래 아래방향으로 내려간 뒤 오른쪽으로 휘어집니다.
+EWS4_GUIDE_CONTROL1_X = EWS4_GUIDE_START_X
+EWS4_GUIDE_CONTROL1_Y = EWS4_GUIDE_START_Y + 92
+
+# CONTROL2:
+# 곡선 끝점과 Y를 같게 두면 곡선 끝에서 정확히 수평 오른쪽 방향이 됩니다.
+# X를 작게(끝점보다 더 왼쪽) 할수록 수평으로 눕는 구간이 길어집니다.
+EWS4_GUIDE_CONTROL2_X = EWS4_GUIDE_CURVE_END_X - 37
+EWS4_GUIDE_CONTROL2_Y = EWS4_GUIDE_CURVE_END_Y
+
+# 수평 직선구간 최종 벽
+EWS4_GUIDE_WALL_X = EWS4_EMERGE_END_X + 74
+EWS4_GUIDE_WALL_Y = EWS4_GUIDE_CURVE_END_Y
+
+# Timing (seconds)
+# 값이 작을수록 빠름 / 클수록 느림
+
+# 스테이션 본체 내부에서 캐리어가 대기하는 시간
+EWS4_GUIDE_INSIDE_HOLD_SECONDS = 0.70
+
+# 곡선 구간 / 수평 감속 구간 이동시간
+EWS4_GUIDE_CURVE_SECONDS = 0.95
+EWS4_GUIDE_SLIDE_SECONDS = 0.95
+
+# 가이드레일 오른쪽 벽에 도착한 뒤 화면에 남아있는 시간
+EWS4_GUIDE_WALL_HOLD_SECONDS = 0.90
+
+# EWS 본체보다 뒤에 배치.
+# SVG의 투명한 부분에서는 캐리어가 보이고,
+# 본체/가이드레일 도형이 있는 부분에서는 자연스럽게 가려집니다.
+EWS4_GUIDE_Z_INDEX = 58
+
+# 수평 직선구간에서는 완전히 반시계 90도 회전된 상태 유지
+EWS4_GUIDE_WALL_ROTATION_DEG = -90.0
 
 # 시간
 TITAN_SEND_DOOR_OPEN_SECONDS = 0.35
@@ -883,6 +993,16 @@ PTP_BLOWER_URI = file_data_uri(
     "blower(PTP용).svg"
 )
 
+# PTP Control Panel
+# assets/control panel.svg
+PTP_CONTROL_PANEL_SVG_TEXT = read_svg(
+    "control panel.svg"
+)
+
+PTP_CONTROL_PANEL_URI = file_data_uri(
+    "control panel.svg"
+)
+
 CARRIER_SVG_TEXT = read_svg(
     "carrier.svg"
 )
@@ -988,6 +1108,31 @@ EWS_BODY_URI = (
         "image/svg+xml",
     )
     if EWS_BODY_PATH
+    else ""
+)
+
+# No.4 can use a different EWS body asset that includes the guide rail.
+EWS4_BODY_PATH = first_existing_asset(
+    "EWS 스테이션 본체with가이드레일.svg",
+    "EWS_station_body_with_guide_rail.svg",
+    "EWS_station_body_with_guiderail.svg",
+    "EWS_station_body_guide_rail.svg",
+) or EWS_BODY_PATH
+
+EWS4_BODY_SVG_TEXT = (
+    EWS4_BODY_PATH.read_text(
+        encoding="utf-8",
+    )
+    if EWS4_BODY_PATH
+    else ""
+)
+
+EWS4_BODY_URI = (
+    binary_file_data_uri(
+        EWS4_BODY_PATH,
+        "image/svg+xml",
+    )
+    if EWS4_BODY_PATH
     else ""
 )
 
@@ -1430,6 +1575,64 @@ def logo_html(
     )
 
 
+def contact_info_html() -> str:
+    # 실제 HTML 텍스트입니다.
+    # "TEL :" / "E-MAIL :" 라벨은 선택되지 않고,
+    # 전화번호 / 이메일 값만 각각 독립적으로 드래그 선택/복사할 수 있습니다.
+    return f"""
+        <div
+            class="logo-contact-info"
+            style="
+                position:absolute;
+                left:{px(CONTACT_INFO_X)};
+                top:{py(CONTACT_INFO_Y)};
+                color:#111111;
+                font-size:{CONTACT_INFO_FONT_SIZE / 10:.3f}cqw;
+                font-weight:700;
+                line-height:{CONTACT_INFO_LINE_HEIGHT};
+                white-space:nowrap;
+                z-index:101;
+            "
+        >
+            <div style="display:flex; align-items:baseline;">
+                <span
+                    style="
+                        user-select:none;
+                        -webkit-user-select:none;
+                        cursor:default;
+                    "
+                >{CONTACT_PHONE_LABEL}</span>
+                <span
+                    style="
+                        margin-left:0.35cqw;
+                        user-select:text;
+                        -webkit-user-select:text;
+                        cursor:text;
+                    "
+                >{CONTACT_PHONE_VALUE}</span>
+            </div>
+
+            <div style="display:flex; align-items:baseline;">
+                <span
+                    style="
+                        user-select:none;
+                        -webkit-user-select:none;
+                        cursor:default;
+                    "
+                >{CONTACT_EMAIL_LABEL}</span>
+                <span
+                    style="
+                        margin-left:0.35cqw;
+                        user-select:text;
+                        -webkit-user-select:text;
+                        cursor:text;
+                    "
+                >{CONTACT_EMAIL_VALUE}</span>
+            </div>
+        </div>
+    """
+
+
 # ============================================================
 # PTP blower
 # ============================================================
@@ -1507,6 +1710,48 @@ def ptp_blower_html():
         html,
         port_x,
         port_y,
+    )
+
+
+# ============================================================
+# PTP Control Panel
+# ============================================================
+
+def ptp_control_panel_html() -> str:
+    if not (
+        PTP_CONTROL_PANEL_URI
+        and PTP_CONTROL_PANEL_SVG_TEXT
+    ):
+        return ""
+
+    vb_w, vb_h = svg_viewbox_size(
+        PTP_CONTROL_PANEL_SVG_TEXT,
+        default=(
+            100.0,
+            100.0,
+        ),
+    )
+
+    if vb_h <= 0:
+        return ""
+
+    scale = (
+        PTP_CONTROL_PANEL_TARGET_HEIGHT
+        / vb_h
+    )
+
+    width = (
+        vb_w
+        * scale
+    )
+
+    return image_html(
+        uri=PTP_CONTROL_PANEL_URI,
+        x=PTP_CONTROL_PANEL_X,
+        y=PTP_CONTROL_PANEL_Y,
+        width=width,
+        height=PTP_CONTROL_PANEL_TARGET_HEIGHT,
+        z=20,
     )
 
 
@@ -2028,16 +2273,26 @@ def ccu_ews_station_html(
     target_height: float,
     inlet_offset_x: float,
     inlet_offset_y: float,
+    body_uri: str = "",
+    body_svg_text: str = "",
+    body_offset_x: float = 0,
+    body_offset_y: float = 0,
+    body_height_multiplier: float = 1.0,
 ) -> str:
+    effective_body_uri = body_uri or EWS_BODY_URI
+    effective_body_svg_text = body_svg_text or EWS_BODY_SVG_TEXT
+    effective_top_y = top_y + body_offset_y
+    effective_target_height = target_height * body_height_multiplier
+
     # split EWS 우선
     if (
-        EWS_BODY_URI
-        and EWS_BODY_SVG_TEXT
+        effective_body_uri
+        and effective_body_svg_text
         and EWS_INLET_URI
         and EWS_INLET_SVG_TEXT
     ):
         _, _, body_w, body_h = svg_viewbox(
-            EWS_BODY_SVG_TEXT,
+            effective_body_svg_text,
             default=(
                 0,
                 0,
@@ -2050,7 +2305,7 @@ def ccu_ews_station_html(
             return ""
 
         body_scale = (
-            target_height
+            effective_target_height
             / body_h
         )
 
@@ -2061,6 +2316,7 @@ def ccu_ews_station_html(
 
         body_left = (
             center_x
+            + body_offset_x
             - body_width / 2
         )
 
@@ -2087,7 +2343,7 @@ def ccu_ews_station_html(
         )
 
         inlet_top = (
-            top_y
+            effective_top_y
             + EWS_INLET_LOCAL_Y
             * body_scale
             + inlet_offset_y
@@ -2109,11 +2365,11 @@ def ccu_ews_station_html(
         )
 
         body_html = image_html(
-            uri=EWS_BODY_URI,
+            uri=effective_body_uri,
             x=body_left,
-            y=top_y,
+            y=effective_top_y,
             width=body_width,
-            height=target_height,
+            height=effective_target_height,
             z=60,
         )
 
@@ -2142,7 +2398,7 @@ def ccu_ews_station_html(
 
         width = (
             vb_w
-            * target_height
+            * effective_target_height
             / vb_h
         )
 
@@ -2150,11 +2406,12 @@ def ccu_ews_station_html(
             uri=EWS_FALLBACK_URI,
             x=(
                 center_x
+                + body_offset_x
                 - width / 2
             ),
-            y=top_y,
+            y=effective_top_y,
             width=width,
-            height=target_height,
+            height=effective_target_height,
             z=60,
         )
 
@@ -2395,23 +2652,7 @@ def show_main_menu():
                 PAZKOREA_LOGO_TARGET_WIDTH,
             )}
 
-            <a
-                class="menu-button"
-                href="?view=ptp"
-
-                style="
-                    left:{px(MAIN_MENU_BUTTON_X)};
-                    top:{py(MAIN_MENU_POINT_Y)};
-
-                    width:{pw(MAIN_MENU_BUTTON_WIDTH)};
-                    height:{ph(MAIN_MENU_BUTTON_HEIGHT)};
-
-                    font-size:
-                        {MAIN_MENU_FONT_SIZE / 10:.3f}cqw;
-                "
-            >
-                Point To Point System
-            </a>
+            {contact_info_html()}
 
             <a
                 class="menu-button"
@@ -2429,6 +2670,24 @@ def show_main_menu():
                 "
             >
                 Central Control Unit System
+            </a>
+
+            <a
+                class="menu-button"
+                href="?view=ptp"
+
+                style="
+                    left:{px(MAIN_MENU_BUTTON_X)};
+                    top:{py(MAIN_MENU_POINT_Y)};
+
+                    width:{pw(MAIN_MENU_BUTTON_WIDTH)};
+                    height:{ph(MAIN_MENU_BUTTON_HEIGHT)};
+
+                    font-size:
+                        {MAIN_MENU_FONT_SIZE / 10:.3f}cqw;
+                "
+            >
+                Point To Point System
             </a>
 
         </div>
@@ -2531,6 +2790,10 @@ def show_point_to_point():
         blower_port_x,
         blower_port_y,
     ) = ptp_blower_html()
+
+    control_panel_html = (
+        ptp_control_panel_html()
+    )
 
     pipe_html = (
         ptp_pipe_image_html(
@@ -2762,9 +3025,11 @@ def show_point_to_point():
                     PAZKOREA_LOGO_Y,
                     PAZKOREA_LOGO_TARGET_WIDTH,
                 )}
+                {contact_info_html()}
 
                 {pipe_html}
                 {blower_html}
+                {control_panel_html}
 
                 <div
                     class="ptp-equipment-label"
@@ -2774,6 +3039,16 @@ def show_point_to_point():
                     "
                 >
                     Blower
+                </div>
+
+                <div
+                    class="ptp-equipment-label"
+                    style="
+                        left:{px(PTP_CONTROL_PANEL_LABEL_X)};
+                        top:{py(PTP_CONTROL_PANEL_LABEL_Y)};
+                    "
+                >
+                    Control Panel
                 </div>
 
                 {station1_html}
@@ -4124,6 +4399,11 @@ def show_central_placeholder():
         target_height=STATION4_TARGET_HEIGHT,
         inlet_offset_x=EWS4_INLET_OFFSET_X,
         inlet_offset_y=EWS4_INLET_OFFSET_Y,
+        body_uri=EWS4_BODY_URI,
+        body_svg_text=EWS4_BODY_SVG_TEXT,
+        body_offset_x=EWS4_BODY_OFFSET_X,
+        body_offset_y=EWS4_BODY_OFFSET_Y,
+        body_height_multiplier=EWS4_BODY_HEIGHT_MULTIPLIER,
     )
 
     basket3_back_html = ccu_basket_html(
@@ -4133,12 +4413,16 @@ def show_central_placeholder():
         target_width=BASKET_BACK_TARGET_WIDTH,
         z=55,
     )
-    basket4_back_html = ccu_basket_html(
-        uri=BASKET_BACK_URI,
-        center_x=(STATION4_CENTER_X + BASKET4_BACK_OFFSET_X),
-        top_y=(BASKET_BACK_TOP_Y + BASKET4_BACK_OFFSET_Y),
-        target_width=BASKET_BACK_TARGET_WIDTH,
-        z=55,
+    basket4_back_html = (
+        ccu_basket_html(
+            uri=BASKET_BACK_URI,
+            center_x=(STATION4_CENTER_X + BASKET4_BACK_OFFSET_X),
+            top_y=(BASKET_BACK_TOP_Y + BASKET4_BACK_OFFSET_Y),
+            target_width=BASKET_BACK_TARGET_WIDTH,
+            z=55,
+        )
+        if EWS4_SHOW_BASKET
+        else ""
     )
     basket3_front_html = ccu_basket_html(
         uri=BASKET_FRONT_URI,
@@ -4147,12 +4431,16 @@ def show_central_placeholder():
         target_width=BASKET_FRONT_TARGET_WIDTH,
         z=70,
     )
-    basket4_front_html = ccu_basket_html(
-        uri=BASKET_FRONT_URI,
-        center_x=(STATION4_CENTER_X + BASKET4_FRONT_OFFSET_X),
-        top_y=(BASKET_FRONT_TOP_Y + BASKET4_FRONT_OFFSET_Y),
-        target_width=BASKET_FRONT_TARGET_WIDTH,
-        z=70,
+    basket4_front_html = (
+        ccu_basket_html(
+            uri=BASKET_FRONT_URI,
+            center_x=(STATION4_CENTER_X + BASKET4_FRONT_OFFSET_X),
+            top_y=(BASKET_FRONT_TOP_Y + BASKET4_FRONT_OFFSET_Y),
+            target_width=BASKET_FRONT_TARGET_WIDTH,
+            z=70,
+        )
+        if EWS4_SHOW_BASKET
+        else ""
     )
 
     level_lines_html = ccu_level_lines_html()
@@ -4342,6 +4630,7 @@ def show_central_placeholder():
             "no": station_no,
             "type": "ews",
             "branch": "middle" if station_no == 4 else "bottom",
+            "receive_mode": "guide_rail" if station_no == 4 else "basket",
             "center_x": center_x,
             "top_y": top_y,
             "send_entry_start": [EWS4_SEND_ENTRY_START_X + dx, EWS4_SEND_ENTRY_START_Y + dy],
@@ -4353,6 +4642,11 @@ def show_central_placeholder():
             "receive_output": [EWS4_OUTPUT_X + dx, EWS4_OUTPUT_Y + dy],
             "receive_emerge": [EWS4_EMERGE_END_X + dx, EWS4_EMERGE_END_Y + dy],
             "receive_basket_drop": [EWS4_BASKET_DROP_X + dx, EWS4_BASKET_DROP_Y + dy],
+            "receive_guide_start": [EWS4_GUIDE_START_X + dx, EWS4_GUIDE_START_Y + dy],
+            "receive_guide_control1": [EWS4_GUIDE_CONTROL1_X + dx, EWS4_GUIDE_CONTROL1_Y + dy],
+            "receive_guide_control2": [EWS4_GUIDE_CONTROL2_X + dx, EWS4_GUIDE_CONTROL2_Y + dy],
+            "receive_guide_curve_end": [EWS4_GUIDE_CURVE_END_X + dx, EWS4_GUIDE_CURVE_END_Y + dy],
+            "receive_guide_wall": [EWS4_GUIDE_WALL_X + dx, EWS4_GUIDE_WALL_Y + dy],
             "drop_rotation": (
                 EWS4_BASKET_DROP_ROTATION_DEG
                 if station_no == 4
@@ -4689,6 +4983,7 @@ def show_central_placeholder():
                     PAZKOREA_LOGO_Y,
                     PAZKOREA_LOGO_TARGET_WIDTH,
                 )}
+                {contact_info_html()}
             </div>
         </div>
 
@@ -5076,6 +5371,51 @@ def show_central_placeholder():
                 return t * t * (3 - 2 * t);
             }}
             function lerp(a, b, t) {{ return a + (b - a) * t; }}
+            function easeOutQuad(t) {{
+                t = clamp01(t);
+                return 1 - (1 - t) * (1 - t);
+            }}
+            function quadraticPoint(p0, p1, p2, t) {{
+                const mt = 1 - t;
+                return [
+                    mt * mt * p0[0] + 2 * mt * t * p1[0] + t * t * p2[0],
+                    mt * mt * p0[1] + 2 * mt * t * p1[1] + t * t * p2[1],
+                ];
+            }}
+            function quadraticTangent(p0, p1, p2, t) {{
+                return [
+                    2 * (1 - t) * (p1[0] - p0[0]) + 2 * t * (p2[0] - p1[0]),
+                    2 * (1 - t) * (p1[1] - p0[1]) + 2 * t * (p2[1] - p1[1]),
+                ];
+            }}
+
+            function cubicPoint(p0, p1, p2, p3, t) {{
+                const mt = 1 - t;
+                return [
+                    mt * mt * mt * p0[0]
+                    + 3 * mt * mt * t * p1[0]
+                    + 3 * mt * t * t * p2[0]
+                    + t * t * t * p3[0],
+
+                    mt * mt * mt * p0[1]
+                    + 3 * mt * mt * t * p1[1]
+                    + 3 * mt * t * t * p2[1]
+                    + t * t * t * p3[1],
+                ];
+            }}
+
+            function cubicTangent(p0, p1, p2, p3, t) {{
+                const mt = 1 - t;
+                return [
+                    3 * mt * mt * (p1[0] - p0[0])
+                    + 6 * mt * t * (p2[0] - p1[0])
+                    + 3 * t * t * (p3[0] - p2[0]),
+
+                    3 * mt * mt * (p1[1] - p0[1])
+                    + 6 * mt * t * (p2[1] - p1[1])
+                    + 3 * t * t * (p3[1] - p2[1]),
+                ];
+            }}
 
             function animate(duration, update) {{
                 return new Promise(resolve => {{
@@ -5113,6 +5453,60 @@ def show_central_placeholder():
                         lerp(from[0], to[0], u),
                         lerp(from[1], to[1], u),
                         rotationDeg,
+                        zIndex
+                    );
+                }});
+            }}
+
+            async function moveCarrierOnQuadratic(
+                p0,
+                p1,
+                p2,
+                duration,
+                zIndex
+            ) {{
+                await animate(duration, t => {{
+                    const pt = quadraticPoint(p0, p1, p2, t);
+                    const tg = quadraticTangent(p0, p1, p2, t);
+                    const angle = Math.atan2(
+                        tg[1],
+                        tg[0]
+                    ) * 180 / Math.PI - 90;
+                    setCarrier(
+                        pt[0],
+                        pt[1],
+                        angle,
+                        zIndex
+                    );
+                }});
+            }}
+
+            async function moveCarrierOnCubic(
+                p0,
+                p1,
+                p2,
+                p3,
+                duration,
+                zIndex
+            ) {{
+                await animate(duration, t => {{
+                    const pt = cubicPoint(p0, p1, p2, p3, t);
+                    const tg = cubicTangent(p0, p1, p2, p3, t);
+
+                    // CSS positive rotation is clockwise.
+                    // Vertical-down tangent -> 0 deg.
+                    // Horizontal-right tangent -> -90 deg.
+                    // Therefore the carrier naturally rotates
+                    // counterclockwise by 90 degrees along the curve.
+                    const angle = Math.atan2(
+                        tg[1],
+                        tg[0]
+                    ) * 180 / Math.PI - 90;
+
+                    setCarrier(
+                        pt[0],
+                        pt[1],
+                        angle,
                         zIndex
                     );
                 }});
@@ -5436,7 +5830,74 @@ def show_central_placeholder():
             }}
 
             async function receiveEws(dst) {{
-                // Match desktop: after pipe arrival, carrier is placed behind EWS.
+                // -------------------------------------------------
+                // Station No.4 - guide rail receive
+                // -------------------------------------------------
+                if (dst.receive_mode === "guide_rail") {{
+                    // Carrier is created at the upper guide-rail point.
+                    // It is behind the EWS body, so the first part is
+                    // naturally hidden by the station artwork.
+                    setCarrier(
+                        dst.receive_guide_start[0],
+                        dst.receive_guide_start[1],
+                        0,
+                        {EWS4_GUIDE_Z_INDEX}
+                    );
+
+                    // v28:
+                    // Carrier waits inside Station 4 before descending.
+                    // It is behind the EWS body, so this waiting state
+                    // remains visually hidden.
+                    await sleep(
+                        {EWS4_GUIDE_INSIDE_HOLD_SECONDS} * 1000
+                    );
+
+                    // No vertical pre-discharge motion.
+                    // After the hold, start the guide curve directly.
+                    await moveCarrierOnCubic(
+                        dst.receive_guide_start,
+                        dst.receive_guide_control1,
+                        dst.receive_guide_control2,
+                        dst.receive_guide_curve_end,
+                        {EWS4_GUIDE_CURVE_SECONDS} * 1000,
+                        {EWS4_GUIDE_Z_INDEX}
+                    );
+
+                    // Horizontal section:
+                    // easeOutQuad gives a continuously decreasing speed,
+                    // ending at zero velocity at the right wall.
+                    await animate({EWS4_GUIDE_SLIDE_SECONDS} * 1000, t => {{
+                        const u = easeOutQuad(t);
+                        setCarrier(
+                            lerp(
+                                dst.receive_guide_curve_end[0],
+                                dst.receive_guide_wall[0],
+                                u
+                            ),
+                            lerp(
+                                dst.receive_guide_curve_end[1],
+                                dst.receive_guide_wall[1],
+                                u
+                            ),
+                            {EWS4_GUIDE_WALL_ROTATION_DEG},
+                            {EWS4_GUIDE_Z_INDEX}
+                        );
+                    }});
+
+                    // v28:
+                    // Stay against the right wall, then disappear.
+                    // The carrier is hidden by runTransport's existing
+                    // finally block immediately after this hold finishes.
+                    await sleep(
+                        {EWS4_GUIDE_WALL_HOLD_SECONDS} * 1000
+                    );
+
+                    return;
+                }}
+
+                // -------------------------------------------------
+                // Station No.3 - keep existing EWS basket receive
+                // -------------------------------------------------
                 setCarrier(
                     dst.receive_hidden_start[0],
                     dst.receive_hidden_start[1],

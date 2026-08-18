@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="레이어_1" xmlns:ffdec="https://www.free-decompiler.com/flash"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 22.8 26.9"
+	 style="enable-background:new 0 0 22.8 26.9;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_1_);}
+	.st1{fill:url(#SVGID_2_);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;}
+	.st2{fill-rule:evenodd;clip-rule:evenodd;fill:url(#SVGID_3_);}
+	.st3{fill:url(#SVGID_4_);stroke:#000000;stroke-linecap:round;stroke-linejoin:round;}
+</style>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="0.4493" y1="19.7318" x2="22.2381" y2="19.7318" gradientTransform="matrix(1 0 0 -1 0 33.2059)">
+	<stop  offset="0" style="stop-color:#9F9F9F"/>
+	<stop  offset="1" style="stop-color:#626262"/>
+</linearGradient>
+<path class="st0" d="M0.5,0.5v25.9h21.8V0.5H0.5"/>
+<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="0.5" y1="13.4741" x2="22.2889" y2="13.4741">
+	<stop  offset="0" style="stop-color:#9F9F9F"/>
+	<stop  offset="1" style="stop-color:#626262"/>
+</linearGradient>
+<path ffdec:has-small-stroke="true" ffdec:original-stroke-width="0.55" class="st1" d="M0.5,0.5h21.8v25.9H0.5V0.5z"/>
+<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="4.7911" y1="19.7318" x2="7.0244" y2="19.7318" gradientTransform="matrix(1 0 0 -1 0 33.2059)">
+	<stop  offset="0" style="stop-color:#9F9F9F"/>
+	<stop  offset="1" style="stop-color:#626262"/>
+</linearGradient>
+<path class="st2" d="M4.8,10.5v5.9H7v-5.9H4.8"/>
+<linearGradient id="SVGID_4_" gradientUnits="userSpaceOnUse" x1="3.7963" y1="13.4741" x2="6.0296" y2="13.4741">
+	<stop  offset="0" style="stop-color:#E1E1E1"/>
+	<stop  offset="1" style="stop-color:#909090"/>
+</linearGradient>
+<path ffdec:has-small-stroke="true" ffdec:original-stroke-width="0.55" class="st3" d="M3.8,10.5H6v5.9H3.8V10.5z"/>
+</svg>
