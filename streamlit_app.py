@@ -57,7 +57,7 @@ CONTACT_EMAIL_VALUE = "pazbest@pazkorea.co.kr"
 
 # Website hyperlink
 CONTACT_WEB_TEXT = "pazkorea.co.kr"
-CONTACT_WEB_URL = "https://www.pazkorea.co.kr"
+CONTACT_WEB_URL = "http://www.pazkorea.co.kr"
 
 
 # ============================================================
