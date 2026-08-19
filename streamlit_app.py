@@ -1,5 +1,5 @@
 # ============================================================
-# Animation V5 Web v31
+# Animation V5 Web v32
 # - Responsive 1000x700 stage
 # - Entire UI scales together with browser window
 # - SVG assets isolated with data URI
@@ -55,6 +55,10 @@ CONTACT_PHONE_VALUE = "031-791-1033"
 CONTACT_EMAIL_LABEL = "E-MAIL :"
 CONTACT_EMAIL_VALUE = "pazbest@pazkorea.co.kr"
 
+# Website hyperlink
+CONTACT_WEB_TEXT = "pazkorea.co.kr"
+CONTACT_WEB_URL = "https://www.pazkorea.co.kr"
+
 
 # ============================================================
 # 메인 메뉴
@@ -72,6 +76,18 @@ MAIN_MENU_FONT_SIZE = 28
 # ============================================================
 # Point To Point
 # ============================================================
+
+# ------------------------------------------------------------
+# PTP 전체 컨텐츠 위치 조정
+# ------------------------------------------------------------
+# 로고 / 연락처 / Main 버튼은 이동하지 않습니다.
+# 배관, 스테이션, 캐리어, Blower, Control Panel,
+# 라벨, Send 버튼, 애니메이션 경로를 한 번에 이동합니다.
+#
+# +X = 오른쪽 / -X = 왼쪽
+# +Y = 아래   / -Y = 위
+PTP_CONTENT_OFFSET_X = 0
+PTP_CONTENT_OFFSET_Y = 60
 
 PTP_PIPE_LEFT_X = 310
 PTP_PIPE_RIGHT_X = 725
@@ -422,7 +438,17 @@ CCU_SEND_BUTTON_SCALE = 1.3
 # Send 글씨: v13 대비 1.7배
 CCU_SEND_FONT_SCALE = 1.7
 
-# 로고와 Main 버튼을 제외한 CCU 전체를 아래로 이동
+# CCU 전체 컨텐츠 위치 조정
+#
+# X:
+# 로고 / 연락처 / 점선 / Main 버튼을 제외한
+# 배관, 스테이션, 캐리어, Blower, Diverter,
+# 장비 라벨, Send 버튼, 애니메이션 경로를 한 번에 이동합니다.
+# +값 = 오른쪽 / -값 = 왼쪽
+CCU_CONTENT_OFFSET_X = 100
+
+# Y:
+# 기존 CCU 컨텐츠의 상하 위치값을 그대로 유지합니다.
 # +값 = 아래 / -값 = 위
 CCU_CONTENT_OFFSET_Y = 20
 
@@ -1628,6 +1654,21 @@ def contact_info_html() -> str:
                         cursor:text;
                     "
                 >{CONTACT_EMAIL_VALUE}</span>
+            </div>
+
+            <div>
+                <a
+                    href="{CONTACT_WEB_URL}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style="
+                        color:#111111;
+                        text-decoration:underline;
+                        cursor:pointer;
+                        user-select:text;
+                        -webkit-user-select:text;
+                    "
+                >{CONTACT_WEB_TEXT}</a>
             </div>
         </div>
     """
@@ -2959,6 +3000,15 @@ def show_point_to_point():
                 background: #ffffff;
             }}
 
+            .ptp-content {{
+                position:absolute;
+                left:{px(PTP_CONTENT_OFFSET_X)};
+                top:{py(PTP_CONTENT_OFFSET_Y)};
+                width:100%;
+                height:100%;
+                z-index:1;
+            }}
+
             .ptp-send {{
                 cursor: pointer;
                 padding: 0;
@@ -3027,6 +3077,7 @@ def show_point_to_point():
                 )}
                 {contact_info_html()}
 
+                <div class="ptp-content">
                 {pipe_html}
                 {blower_html}
                 {control_panel_html}
@@ -3192,6 +3243,7 @@ def show_point_to_point():
                 >
                     Send
                 </button>
+                </div>
 
             </div>
         </div>
@@ -4852,6 +4904,15 @@ def show_central_placeholder():
                 z-index:1;
             }}
 
+            .ccu-main-elements {{
+                position:absolute;
+                left:{px(CCU_CONTENT_OFFSET_X)};
+                top:0;
+                width:100%;
+                height:100%;
+                z-index:1;
+            }}
+
             .ccu-station-label {{
                 position:absolute;
                 color:{LABEL_RED};
@@ -4936,6 +4997,8 @@ def show_central_placeholder():
             <div class="web-stage" id="ccu-stage">
                 <div class="ccu-content">
                     {level_lines_html}
+
+                    <div class="ccu-main-elements">
                     {pipe_html}
                     {blower_html}
                     {diverter_html}
@@ -4969,6 +5032,7 @@ def show_central_placeholder():
                     >
                         {motion_paths_html}
                     </svg>
+                    </div>
                 </div>
 
                 {logo_html(
